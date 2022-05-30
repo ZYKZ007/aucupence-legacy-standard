@@ -1,39 +1,38 @@
 # Aucupence Legacy Standard – Presales, Governance & Enablement Asset Library
 
-Status: Archived snapshot of a legacy internal baseline used to support software vendors and delivery teams in proposal-stage governance and capability articulation.
+Status: Archived snapshot. This repository represents a legacy internal baseline used for structured presales and delivery governance support.
 
-This repository is a curated set of templates and reference narratives that demonstrate how a small consulting team structures:
+Aucupence works as a behind-the-scenes consulting partner for software vendors and outsourcing teams facing global client standards. The assets here illustrate how a small specialist team translates engineering capability into review-ready proposal material for regulated and high-expectation environments.
 
-- Enterprise RFP decomposition and bid triage for regulated environments.
-- NFR and solution-overview responses for digital platforms with high audit and availability expectations.
-- Estimation logic, role-mix assumptions and commercial defense for offshore/nearshore delivery.
-- Delivery governance, quality gates and operational readiness patterns that international clients can review and score.
-- Presales and enablement Q&A used to prepare PMs, tech leads and architects for demanding client challenges.
+This library is routinely referenced in three engagement types:
+- Vendor-side presales and RFP response support for fintech, payments, and public-sector programs.
+- Delivery governance and quality design for offshore / nearshore operating models.
+- Enablement and coaching for project managers and tech leads who must explain delivery, risk, and architecture in English.
 
-The same assets are reused in:
-- Vendor enablement for outsourcing teams facing global client standards.
-- Coaching project managers and tech leads who must defend delivery models and risk posture in English.
-- Individual role-focused training for digital banking and transformation-related positions.
+No client-identifying information is included. Examples are intentionally generalized and can be safely used as baseline patterns.
 
-No client-identifying information is included. Examples are abstracted and safe for baseline reuse.
+## Repository Map
 
-## Modules
+01. RFP Decomposition  
+Compliance matrices, bid triage frameworks, risk registers, clarification questions, and RFP-to-solution mapping patterns.
 
-1. 01-rfp-decomposition  
-   Bid triage, compliance matrices, clarification-question sets and commercial positioning playbooks.
+02. Technical Proposal Kit  
+Standard NFR responses, reference architecture narratives, cloud and DevSecOps baselines, plus data and integration guidance.
 
-2. 02-technical-proposal-kit  
-   NFR baselines, architecture-reference notes and solution-overview building blocks.
+03. Scope Estimation & Commercial  
+Estimation models, role/rate structures, commercial model assumptions, and pricing scenarios for distributed delivery.
 
-3. 03-scope-estimation-commercial  
-   Estimation decomposition, driver-based assumptions, rate-card guidance and pricing narratives.
+04. Delivery Governance  
+Phase plans, environment and release strategies, governance layers, and condensed retrospective-style case notes.
 
-4. 04-plan-level-delivery-governance  
-   Governance layers, cadence, RACI patterns, escalation logic and steering-pack structures.
+05. Quality & Test Strategy  
+Test pyramid baselines, CI/CD quality gates, defect SLAs, and performance engineering foundations.
 
-5. 05-quality-and-test-strategy  
-   QA strategy, CI quality gates, defect SLAs, release readiness and audit-friendly evidence patterns.
+06. Defense & Q&A Library  
+Structured objection-handling and enablement Q&A for technical, commercial, architecture, DevOps, PM, and data/security topics.
 
-6. 06-defense-and-qa-library  
-   Presales technical/commercial Q&A and structured enablement topics for delivery leaders.
+## Reference Diagrams
 
+![High-level reference architecture](./diagrams/architecture-high-level.svg)
+
+![Runtime and flow patterns](./diagrams/architecture-runtime-flows.svg)

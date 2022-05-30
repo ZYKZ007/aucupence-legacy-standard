@@ -1,84 +1,48 @@
-# Solution Overview – Architecture Notes (Reference)
+# Solution Overview – Architecture Notes (Legacy Reference)
 
-This document is a compact but enterprise-aligned reference for writing solution-overview sections in proposals for digital banking, lending and transaction-heavy platforms.
+This document provides an executive-friendly architecture overview format used in proposals for digital platforms with high regulatory, performance, and audit expectations.
 
-It is intentionally abstract to avoid over-committing to a single vendor stack while still sounding technically credible to reviewers.
+The overview is designed to remain technology-agnostic while still being technically credible. Detailed specifications and stack-level decisions are intentionally deferred to discovery workshops and architecture sign-off gates.
 
----
+## Logical Architecture At a Glance
 
-## 1. Logical View
+A consistent proposal-friendly decomposition:
 
-A layered framing used to keep proposal narratives consistent:
+- Channels  
+Web, mobile, admin portals, and partner-facing interfaces.
 
-1. **Channel Layer**
-   Web, mobile, branch, partner portals and internal operational consoles.
+- API & Integration Layer  
+Unified API gateway patterns, external integration contracts, throttling, and versioning rules.
 
-2. **API & Integration Layer**
-   API gateway, BFF services, service-mesh ingress/egress, event backbone for asynchronous integration.
+- Domain Services  
+Business capabilities separated into independently deployable bounded contexts.
 
-3. **Domain Services Layer**
-   Product/catalog, onboarding, loan origination, decisioning, collections, payments, customer 360, pricing/limits engine.
+- Data Platforms  
+Operational stores, reporting layers, and analytics separation with clear data ownership.
 
-4. **Data & Intelligence Layer**
-   Operational stores, audit/event stores, reporting marts, risk/ML feature stores where applicable.
+- Cross-cutting Controls  
+Security, logging, audit trails, configuration governance, and policy enforcement.
 
-This model supports phased awards and incremental delivery without breaking architectural coherence.
+## Deployment & Resilience Summary
 
----
+Typical patterns described during presales:
 
-## 2. Deployment Assumptions (Proposal-Level)
+- Multi-AZ deployment for stateful components.
+- Horizontal scalability for stateless services.
+- Environment segregation with controlled promotion paths.
+- Back-pressure and graceful degradation for non-critical workloads.
 
-- Primary region deployment with multi-AZ availability.
-- Clear environment segmentation for Dev/Test/UAT/Prod.
-- Managed services used for:
-  - relational storage
-  - messaging
-  - caching
-  - secrets
-- Infrastructure defined as code to support auditability and repeatability.
+## Security & Regulatory Framing
 
----
+For regulated programs, the overview must state:
 
-## 3. Cross-Cutting NFR Narratives
+- Region and data residency assumptions.
+- Segregation of production access, including offshore constraints.
+- Encryption and key-management posture.
+- Audit log retention and retrieval mechanisms.
 
-A proposal should explicitly address:
+## Visual Reference
 
-- Performance targets by service tier.
-- Availability targets by business criticality.
-- Data residency constraints and offshore-access controls.
-- Observability commitments (metrics, logs, traces).
-- Security controls mapped to audit expectations.
+![High-level reference architecture](../diagrams/architecture-high-level.svg)
 
----
-
-## 4. Data Segregation and Auditability
-
-Regulated clients expect explicit statements on data boundaries:
-
-- PII vs. non-PII separation and masking rules.
-- Immutable audit event streams for critical operations.
-- Retention policies aligned to local requirements.
-- Controlled access to sensitive logs and admin actions.
-
----
-
-## 5. Operability and Day-2 Signals
-
-A minimal but credible operational narrative:
-
-- Health checks and progressive delivery.
-- Automated rollback and feature flag controls.
-- Runbooks for dependency outages and throttling scenarios.
-- On-call and incident triage aligned to severity definitions.
-- Dashboards for technical and business KPIs.
-
----
-
-## 6. What This Reference Is Not
-
-- Not a client solution blueprint.
-- Not an exhaustive design document.
-- Not a commitment to specific cloud products.
-
-It is a structured narrative baseline that helps convert real engineering capability into scorable, review-ready proposal language.
-
+![Runtime and flow patterns](../diagrams/architecture-runtime-flows.svg)
