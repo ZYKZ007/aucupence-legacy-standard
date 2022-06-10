@@ -1,197 +1,106 @@
-# Presales Technical Q&A – Deep Technical Version
+# Presales Technical Q&A – Standard Library
 
-This library is intended for discussions with client architects, security teams and senior engineers. Answers are written to show concrete technical thinking, not generic marketing language.
-
----
-
-## 1. Architecture & Runtime
-
-### Q1: Why choose Kubernetes (EKS) over a pure serverless approach?
-
-We prefer EKS when:
-
-- There is a mix of latency-sensitive APIs and long-running or stateful workloads.
-- The platform needs sidecars (for example service mesh, logging, tracing, policy agents).
-- There is a realistic chance that parts of the workload might move on-premises or to another cloud in future.
-- The client wants stronger control over runtime, versioning and networking.
-
-We still use serverless components (Lambda, Step Functions, EventBridge) for specific jobs: low-throughput event handlers, scheduled housekeeping tasks or glue logic. We document the split explicitly so the platform does not turn into “Kubernetes everywhere” by accident.
+These Q&A items are used when technical stakeholders challenge the proposed architecture or delivery model. The goal is to answer in a way that is concrete, testable and consistent with the reference architectures in this repository.
 
 ---
 
-### Q2: How do you prevent a microservices design from degenerating into a distributed monolith?
+## 1. Scalability and Peak Load
 
-We partition by domain, not layers. Each service owns:
+Question: How will the system behave if our volumes double or we have a peak like Black Friday?
 
-- A clear bounded context (for example onboarding, decisioning, disbursement).
-- Its own persistence schema.
-- A small, stable set of APIs and domain events.
+Answer:  
+We design for horizontal scalability by default. Stateless services are containerised and deployed on an orchestrated platform. We scale out based on live metrics such as requests per second, queue depth and CPU/memory utilisation.
 
-Cross-service communication uses:
-
-- Synchronous APIs when necessary, with clear contracts and backward compatibility rules.
-- Asynchronous events for cross-domain notifications.
-
-We explicitly avoid:
-
-- Cross-service database access.
-- “Utility” services that become God objects.
-- Shared “common” schemas that couple unrelated services.
-
-Architecture Decision Records capture these choices and exceptions.
+For predictable seasonal peaks we agree capacity plans in advance. For unexpected peaks, rate limiting and graceful degradation ensure that critical journeys (for example application submission, payment execution) remain available, while non-critical features can be temporarily slowed down or disabled.
 
 ---
 
-## 2. Performance & Capacity
+## 2. Data Residency and Offshore Access
 
-### Q3: How do you size the initial cluster and database?
+Question: How do you ensure that offshore teams cannot access our production data?
 
-We express sizing as a process, not a magic number:
+Answer:  
+Production environments are strictly segregated and accessible only to a small, approved group under client governance. Offshore developers work on lower environments with anonymised or synthetic data.
 
-1. Estimate peak RPS and concurrency for critical journeys.
-2. Map to resource needs per request (CPU, memory, DB calls).
-3. Apply realistic utilisation targets (for example aim for 60–70% CPU at peak, not 100%).
-4. Run load tests and adjust.
+We combine:
 
-As a starting point for a mid-size lending platform:
+- Network segmentation and firewall rules,
+- Identity and access management with least-privilege roles and MFA,
+- Virtual desktop infrastructure with copy/paste and file-transfer restrictions.
 
-- 4–6 pods of core API services (2 vCPU, 4–8 GiB RAM each).
-- Aurora writer with 2–4 vCPUs and 16–32 GiB RAM, plus 2 read replicas.
-- Redis cluster with 2 small or medium nodes for session and cache.
-
-We then run tests and tune:
-
-- Pod resources and HPA thresholds.
-- Connection pool sizes.
-- DB instance size and number of replicas.
+These are technical controls, not just process rules, and we are able to demonstrate them during due diligence.
 
 ---
 
-### Q4: How do you protect critical flows during high load?
+## 3. Vendor Lock-in and Exit Strategy
 
-We treat critical flows (application submission, decision, payment) separately:
+Question: How difficult would it be to move away from your team in the future?
 
-- Per-route and per-client rate limiting at API gateway or ingress.
-- Circuit breakers at service mesh level so slow downstream services do not cascade failures.
-- Isolation where needed:
-  - Critical services on separate node groups.
-  - Separate Redis or Kafka topics/partitions for high-priority traffic.
+Answer:  
+We design for portability. Infrastructure is defined as code, and the application follows standard technologies (containers, mainstream databases, open API standards). We maintain:
 
-We also agree non-critical features that can degrade gracefully (for example background scoring refresh or campaign analytics) so they can be slowed or paused automatically in overload scenarios.
+- Up-to-date documentation and architecture decision records,
+- A structured knowledge base for operations and support,
+- Clear separation of configuration and environment-specific details.
 
----
-
-## 3. Security & Compliance
-
-### Q5: How is least privilege enforced in AWS and Kubernetes?
-
-We enforce least privilege at multiple layers:
-
-- AWS IAM:
-  - IAM roles for service accounts (IRSA) linking pods to IAM roles with minimal permissions.
-  - Strict role policies (for example read-only to specific S3 prefixes, limited KMS usage).
-- Kubernetes:
-  - Namespaces per environment or domain.
-  - RBAC roles and role bindings per team.
-  - NetworkPolicies restricting traffic between namespaces and services.
-- Application:
-  - Role/scope checks at API layer.
-  - Feature flags for highly sensitive operations.
-
-We back this with:
-
-- Periodic access reviews.
-- Automated checks on Terraform and Kubernetes manifests with policy-as-code tools.
+During contract negotiations we can include an exit plan with handover activities, data and documentation exports and optional shadowing for incoming teams.
 
 ---
 
-### Q6: What evidence can you provide to auditors that controls are actually in place?
+## 4. Observability and Incident Response
 
-We provide a simple control → configuration → evidence mapping. For example:
+Question: How will you detect and diagnose issues quickly in production?
 
-- “DB data is encrypted at rest” →
-  - Terraform config for Aurora with KMS CMK →
-  - AWS console/screenshots or API output validating encryption flags.
-- “Admin actions are logged” →
-  - Kubernetes audit log configuration + log samples →
-  - CloudTrail events for IAM role usage.
+Answer:  
+We implement an observability baseline that includes:
 
-Where possible we avoid one-off screenshots and point to reproducible queries or scripts.
+- Structured logging with correlation IDs across services,
+- Metrics for both technical and business indicators,
+- Traces for critical flows where required.
 
----
-
-## 4. DevSecOps & SDLC
-
-### Q7: What does your DevSecOps pipeline look like in practice?
-
-Typical stages:
-
-1. On pull request:
-   - Static code analysis (SonarQube or equivalent).
-   - Unit tests with coverage thresholds.
-   - Dependency scanning and container base image scanning.
-2. On merge to main:
-   - Build container images, scan again.
-   - Deploy to integration via GitOps (for example Argo CD).
-   - Run API, contract and UI regression tests.
-   - Run basic DAST against integration.
-3. Before production:
-   - Change record with risk notes.
-   - Production deployment with smoke tests.
-   - Post-deploy verification and quick rollback option.
-
-We keep pipeline configuration as code (YAML) and subject to code review.
+We define alert rules for key SLIs (latency, error rates, saturation) and connect them to agreed escalation paths and response SLAs. Runbooks describe standard diagnostic steps per incident type, so response does not depend solely on individual heroics.
 
 ---
 
-### Q8: How are secrets handled?
+## 5. Managing Technical Debt
 
-- Secrets are stored in a secure secret manager (AWS Secrets Manager or similar), not in Git.
-- CI/CD jobs assume short-lived roles to fetch secrets at deploy time.
-- Container images never include environment-specific secrets.
-- Secret scanning tools run periodically on repos to detect accidental leaks.
+Question: How do you prevent technical debt from accumulating over time?
 
-If a leak is suspected:
+Answer:  
+We treat technical debt as a first-class topic in governance:
 
-- A defined runbook is executed (revoke, rotate, search, monitor).
-- Logs are checked to see if leaked secrets were used.
+- We make architectural trade-offs explicit and record them in ADRs,
+- We track debt items in the backlog with an owner and impact description,
+- We reserve capacity for refactoring and maintenance in each release train or quarter.
 
----
-
-## 5. Observability & Operations
-
-### Q9: How do you ensure that on-call engineers can resolve issues quickly?
-
-We design for debuggability:
-
-- Every incoming request gets a correlation ID that is propagated across service boundaries.
-- Logs are structured to at least include:
-  - Correlation ID.
-  - User or system id (where applicable).
-  - Service and version.
-  - Key parameters and error codes.
-- Dashboards aggregate:
-  - Golden signals (latency, error rate, saturation).
-  - Business-level metrics (applications submitted, approved, declined, by segment).
-
-Runbooks describe:
-
-- How to interpret specific graphs.
-- What first checks to perform.
-- When and how to escalate.
-
-We encourage game days to rehearse these procedures.
+Our aim is not to avoid all debt, but to ensure that it is conscious, documented and actively managed.
 
 ---
 
-### Q10: How do you avoid alert fatigue?
+## 6. Security Testing and Hardening
 
-We:
+Question: What do you do beyond basic vulnerability scans?
 
-- Derive alerts from SLOs rather than raw metrics.
-- Group alerts into incidents and use noise reduction features where available.
-- Regularly review alert history:
-  - Remove alerts that rarely fire or never lead to action.
-  - Adjust thresholds when conditions have changed.
+Answer:  
+In addition to standard SAST, DAST and dependency scanning in the CI/CD pipeline, we:
 
-The outcome is a small, meaningful set of alerts that on-call staff trust.
+- Include security requirements in user stories where appropriate,
+- Run targeted security tests on critical flows (authentication, authorisation, payments, data export),
+- Support independent penetration tests commissioned by the client.
+
+Findings are prioritised based on risk, and remediation is tracked as part of the normal backlog with clear acceptance criteria.
+
+---
+
+## 7. Cloud Provider Dependency
+
+Question: What happens if we want to change cloud provider in the future?
+
+Answer:  
+We avoid unnecessary provider-specific lock-in by:
+
+- Using container platforms and standard orchestration patterns,
+- Separating application code from infrastructure provisioning logic,
+- Isolating provider-specific features behind clear interfaces.
+
+A full re-platform is never free, but by keeping clear boundaries and using infrastructure as code, we can estimate and plan such migrations more reliably if the business case arises.

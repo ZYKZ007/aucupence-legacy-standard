@@ -44,4 +44,4 @@ This repository is kept as a reference library to:
 - Provide examples for training and coaching sessions,
 - Act as a starting point when assembling new proposal and governance packs.
 
-It is not meant to be a complete, ready-to-run solution. Real engagements extend and adapt these baselines with client-specific detail, additional controls and concrete financials.
+Real engagements extend these baselines with client-specific diagrams, numbers, financials and runbooks that are not included here for confidentiality. The intent is to show capability and structure, not to publish a complete solution.
