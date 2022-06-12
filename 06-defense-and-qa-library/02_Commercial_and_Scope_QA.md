@@ -1,124 +1,55 @@
-# Presales Commercial & Scope Q&A – Standard Library
+# Commercial & Scope Q&A (18)
 
-This library is used when procurement or senior stakeholders challenge the commercial model, pricing level or scope discipline.
+## Q1. Why do you insist on a written scope baseline?
+A baseline prevents silent scope creep and enables measurable progress. It aligns governance, budget and delivery targets. Without it, neither velocity nor cost is defensible.
 
----
+## Q2. Can you deliver fully fixed price?
+Yes, when requirements, interfaces and NFRs are stable and acceptance criteria are explicit. We typically run discovery first to converge on a realistic baseline. Mixed models are common for risk-balanced delivery.
 
-## 1. Scope and Change Control
+## Q3. How do you manage change requests?
+Changes are logged, estimated and impact-scored before implementation. Options are presented: accept with cost/time, defer, or de-scope. This protects both parties from hidden commitments.
 
-Question: Why do you insist on a formal change-control process?
+## Q4. Why charge for discovery?
+Discovery is the work that prevents guess-based pricing. It clarifies interfaces, data, NFRs and governance assumptions. It reduces downstream rework and negotiation friction.
 
-Answer:  
-Complex digital projects evolve over time. Without a clear mechanism to manage changes, both parties risk misaligned expectations and hidden costs. A structured change process protects the customer and the vendor by making the impact of each change visible and agreed:
+## Q5. How do you defend your rate card?
+Rates reflect skill mix, governance overhead and regulatory workload. We compare total cost-to-deliver, not isolated day rates. Quality and risk posture are priced transparently.
 
-- We document the requested change in simple language,
-- We assess impact on effort, timeline and risk,
-- We present options (do now, defer, or decline),
-- We only proceed once the option and impact are approved.
+## Q6. What drives estimate variance most?
+Integration uncertainty, data readiness and regulatory review cycles. Third-party dependency volatility is a frequent driver. We document assumptions to make variance traceable.
 
-This avoids “silent” scope creep and keeps the commercial model transparent to governance and audit.
+## Q7. Who owns environment costs?
+We support both models. If vendor-hosted, we provide consumption visibility and guardrails. If client-hosted, we rely on agreed provisioning SLAs.
 
----
+## Q8. How do you handle late client inputs?
+We track client dependencies explicitly in RAID logs. Delays pause relevant delivery clocks according to the agreed governance rules. Impact is surfaced early to steering cadence.
 
-## 2. Fixed Price vs Time and Materials
+## Q9. How do you address scope ambiguity in RFPs?
+We list clarifications and assumptions in the proposal. Ambiguous items are priced with ranges or placed in a discovery bucket. We avoid pretending uncertainty does not exist.
 
-Question: Can you deliver this entire scope on a fixed price?
+## Q10. What if internal estimation was wrong?
+We separate estimation error from client-driven change. If scope is unchanged, we absorb impact proportionally as agreed. This principle is stated up front to protect trust.
 
-Answer:  
-Fixed price is feasible when requirements are stable and clearly defined. When key assumptions are still open, we normally propose:
+## Q11. Can you support capacity-based commercials?
+Yes for long-running programs with stable backlog flow. Capacity models simplify monthly forecasting. Governance focuses on throughput and outcome tracking.
 
-1. A discovery phase on Time and Materials to converge on a baseline (requirements, architecture, NFRs, interfaces).  
-2. After discovery, we convert well-understood workstreams into fixed price with:
-   - Clear acceptance criteria,
-   - Explicit assumptions and exclusions,
-   - Defined change-control rules.
+## Q12. Do you offer outcome-based pricing?
+Only where metrics are measurable and jointly controllable. We define data sources and attribution rules early. Governance remains strong to avoid KPI gaming.
 
-This creates a mixed model: fixed price where risk is manageable, Time and Materials where scope is still moving or heavily dependent on third parties.
+## Q13. How do you manage liability expectations?
+We align risk allocation with industry norms. Caps and exclusions are structured to remain commercially sustainable. Security obligations are matched with realistic responsibilities.
 
----
+## Q14. How do you handle IP ownership?
+Client owns deliverables specific to the engagement. Vendor retains reusable accelerators unless exclusivity is purchased. This is clarified in the SOW.
 
-## 3. “Your Rates Look High”
+## Q15. How do you support transition and exit?
+We define exit artefacts, KT sessions and documentation deliverables. Handover activities are scheduled within the plan. This reduces operational risk and lock-in perception.
 
-Question: Your rates seem higher than some competitors. Why?
+## Q16. How do you handle multi-vendor environments?
+We define interface ownership and RACI early. Integration governance is formalized with joint technical forums. Cross-vendor SLAs and escalation are documented.
 
-Answer:  
-We typically explain three levers:
+## Q17. What is your approach to contract renewals?
+We review performance, scope drift and NFR shifts. Rate adjustments, if any, follow pre-agreed indexation rules. We keep renewal negotiation evidence-based.
 
-- Productivity and composition of the team – we use a smaller, more senior core with clear ownership, supported by standardised tooling and automation.  
-- Embedded governance and quality – our commercial model already includes architecture, QA and delivery-governance effort; they are not optional extras.  
-- Risk profile – we price to deliver reliably in a regulated environment rather than to win only on headline rate.
-
-Where useful, we compare scenario totals (for example cost to reach a credible go-live) instead of isolated day rates.
-
----
-
-## 4. Blended Rates vs Role-Based Rates
-
-Question: Can you give us a single blended rate instead of a detailed rate card?
-
-Answer:  
-For planning purposes we often provide a high-level blended rate. However, for governance and transparency we keep the underlying role-based rate card:
-
-- The blended rate is useful for high-level budgeting and benchmarking,  
-- The role-based view is needed for audits, unit-rate comparisons and change requests.
-
-We are happy to work with either format, as long as the underlying structure and assumptions remain traceable.
-
----
-
-## 5. Budget Pressure and Trade-offs
-
-Question: If our budget is lower than your proposal, what can we do?
-
-Answer:  
-Instead of simply cutting rates, we normally explore:
-
-- Scope trade-offs – remove or de-scope lower-value features, or move them to a later phase.  
-- Non-functional adjustments – adjust some NFR targets where they drive disproportionate cost, while staying within regulatory and business constraints.  
-- Delivery-model changes – modify onshore / offshore mix or cadence, without compromising key governance roles.
-
-This makes it explicit what changes when budget changes, so that executives understand the trade-offs instead of assuming “same scope for less”.
-
----
-
-## 6. Overruns and Accountability
-
-Question: What happens if you overrun the agreed effort?
-
-Answer:  
-We separate estimation error from client-driven change:
-
-- If the work is within agreed scope and the overrun is due to our underestimation, we expect to absorb some or all of that impact.  
-- If the overrun is driven by new requirements, third-party delays or scope changes, we expect that to be visible in the change-control log and reflected in commercials.
-
-This principle is discussed up front so that, when issues occur, both sides can refer back to a shared understanding rather than renegotiating basics under pressure.
-
----
-
-## 7. Currency and FX Risk
-
-Question: How do you handle currency and FX risk in a multi-year contract?
-
-Answer:  
-We prefer to:
-
-- Define a base currency for the contract,  
-- Agree rules for how FX movements are handled (for example thresholds, review points, or indexation),  
-- Keep the mechanism simple enough that both finance teams can operate it without constant negotiation.
-
-If part of the delivery team is paid in a different currency, we explain how that is reflected in our pricing and risk assumptions.
-
----
-
-## 8. Long-Term Cost of Ownership
-
-Question: How do we know that your model does not create hidden long-term costs?
-
-Answer:  
-We explicitly discuss:
-
-- Separation of build and run costs,  
-- The impact of NFRs on infrastructure and licence spend,  
-- How automation and quality practices reduce operational incidents and rework.
-
-Where appropriate, we provide rough TCO scenarios so that steering committees can compare not just initial build cost, but total cost over a sensible horizon.
+## Q18. How do you respond to budget reduction requests?
+We propose trade-offs: scope reduction, phased releases or NFR adjustments where permissible. We avoid reducing quality and governance below safe thresholds. Decisions are documented for auditability.
