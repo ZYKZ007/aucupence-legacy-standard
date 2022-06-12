@@ -1,35 +1,34 @@
-# DevOps & Engineering Excellence Q&A
+# DevOps & Engineering Q&A – Standard Library
 
 ---
 
-## CI/CD
+**Q1. What does your CI/CD baseline include?**  
+A1. Automated build, test and security gates, plus controlled promotion across environments.
 
-**Q1**: What quality gates do you enforce in CI?  
-**A**: Baseline gates include minimum coverage thresholds, static analysis, dependency scanning and policy-compliant build artefacts.
+**Q2. What quality gates do you typically enforce?**  
+A2. Code coverage thresholds, static analysis quality gates and high-severity vulnerability blocking.
 
-**Q2**: How do you manage release risk?  
-**A**: We use staged environments, feature toggles, progressive rollout where applicable, and automated rollback criteria.
+**Q3. How do you handle secrets?**  
+A3. Central secrets management with rotation policies and zero hard-coded credentials.
 
-**Q3**: How do you handle emergency fixes?  
-**A**: We define an emergency-change path with post-implementation review and audit logging.
+**Q4. How do you prevent unstable releases?**  
+A4. Progressive delivery, feature flags and automated rollback criteria.
 
----
+**Q5. How do you manage environment drift?**  
+A5. Infrastructure as code with version-controlled modules and approval workflow.
 
-## Environment Strategy
+**Q6. How do you ensure reproducible builds?**  
+A6. Containerized build environments and pinned dependency versions.
 
-**Q4**: How many environments do you assume?  
-**A**: We default to dev/test/stage/prod with explicit data-handling rules for each.
+**Q7. What is your approach to incident response?**  
+A7. Severity model, on-call rota, runbooks and post-incident reviews tied to process improvements.
 
-**Q5**: How do you avoid environment drift?  
-**A**: We propose infrastructure-as-code with peer review and automated parity checks.
+**Q8. How do you measure DevOps maturity?**  
+A8. Lead time, deployment frequency, MTTR and change failure rate, contextualized to risk posture.
 
----
+**Q9. How do you support regulated change approval?**  
+A9. Evidence packs generated from pipeline logs, test results and security scans.
 
-## Observability
-
-**Q6**: What is your standard observability stack approach?  
-**A**: Centralized logs, metrics and traces with correlation IDs; thresholds aligned to agreed SLOs.
-
-**Q7**: How do you define SLOs for mixed workloads?  
-**A**: We tier services by business criticality and align latency/availability targets per tier.
+**Q10. What is your stance on Git workflow?**  
+A10. Trunk-based with short-lived branches for high-velocity teams; GitFlow-like gating where audit requirements are stricter.
 

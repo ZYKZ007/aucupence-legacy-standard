@@ -1,173 +1,120 @@
-# Solution Architecture Reference – Proposal Baseline (Deep)
+# Solution Architecture Reference – Proposal Baseline
 
-This document provides a reusable, multi-view structure for describing a cloud-hosted digital platform architecture in proposals without disclosing client-specific assets.
+This document provides a reusable structure for describing a cloud-hosted digital platform architecture in proposals without disclosing client-specific assets.
 
-It is intended to be used together with:
-- 02_Solution_Overview_Architecture_Notes.md
-- 01_NFR_Response_Digital_Lending.md
-- 03_Cloud_and_DevSecOps_Baseline.md
-- 04_Data_and_Integration_Reference.md
-- diagrams/architecture-high-level.svg
-- diagrams/architecture-runtime-flows.svg
+It is designed for regulated or high-availability programs in domains such as digital banking, lending, payments and customer servicing.
 
 ---
 
 ## 1. Architecture Objectives
 
-- Satisfy regulated-client audit, security and operational expectations.
-- Enable horizontal scaling for transaction-heavy workloads.
-- Maintain modularity for phased delivery and partial-scope awards.
-- Reduce delivery and integration risk through explicit assumptions and constraints.
-- Avoid hard vendor lock-in by choosing standard interface patterns and IaC discipline.
+A proposal-grade architecture narrative should explicitly demonstrate:
+
+- Audit-ready controls for regulated clients.
+- Horizontal scalability for transaction-heavy workloads.
+- Clear separation of concerns to support phased delivery.
+- Reduction of vendor lock-in through standard interfaces and IaC discipline.
+- Operational resilience aligned to agreed RTO/RPO tiers.
 
 ---
 
 ## 2. Reference Deployment Model
 
-- Containerized services deployed on a managed Kubernetes platform.
-- Edge controls fronted by:
-  - WAF,
-  - API gateway,
-  - identity integration,
-  - rate limiting and threat rules.
-- Stateful components hosted via managed services.
-- Centralized observability for logs, metrics and traces.
-- CI/CD pipelines with automated quality and security gates.
+A baseline deployment statement for technical evaluation:
 
-This model is compatible with major cloud providers; concrete services are confirmed during solution workshops.
+- Containerized domain services on a managed Kubernetes platform.
+- Stateful components hosted with managed database and messaging services.
+- Centralized observability for logs, metrics and traces.
+- CI/CD with automated quality and security gates.
+- Environment isolation across Dev/Test/UAT/Prod with strict access tiering.
 
 ---
 
-## 3. Logical Component Groups
+## 3. High-Level Component Groups
 
-### 3.1 Edge and Access
+A standard grouping used to keep proposal narratives consistent:
 
-- WAF and threat rules aligned to common abuse patterns.
-- API gateway policy enforcement:
-  - authentication,
-  - quotas,
-  - request validation,
-  - schema and contract checks where required.
-- Identity provider integration supporting:
-  - workforce users,
-  - external customer identities,
-  - delegated access for partner channels.
+### 3.1 Edge, Identity and Access
+- API gateway or edge proxy.
+- WAF and rate-limiting.
+- Identity provider integration (OIDC/SAML).
+- Segmented admin access with privileged session logging.
 
-### 3.2 Business Services
+### 3.2 Domain and Decision Services
+- Domain-aligned microservices.
+- Rules/decision engine for credit/limits/pricing where applicable.
+- Workflow/orchestration for onboarding and servicing.
 
-Domain-aligned capabilities typically include:
-
-- onboarding and identity verification orchestration,
-- loan origination and product configuration,
-- decisioning and rules,
-- pricing and limit management,
-- repayment and ledger-adjacent flows,
-- collections and servicing,
-- customer profile and consent management.
-
-Granularity is governed by:
-- domain ownership,
-- change frequency,
-- regulatory boundaries,
-- deployment independence needs.
-
-### 3.3 Data and Event Services
-
-- Transactional stores for authoritative records.
-- Event and audit streams for regulator-grade traceability.
-- Reporting marts designed to avoid operational-store overload.
-- Data-quality monitoring for migration and reconciliation.
+### 3.3 Data and Event Backbone
+- Relational operational stores for core transactions.
+- Immutable audit/event streams for sensitive operations.
+- Search indexes for customer and case retrieval.
 
 ### 3.4 Platform Services
+- Messaging backbone (pub/sub).
+- Distributed cache for hot paths.
+- Secrets and configuration management.
 
-- caching for hot-path optimisation,
-- messaging/event backbone,
-- configuration and secrets management,
-- feature flagging and safe rollout controls.
-
----
-
-## 4. Integration Architecture
-
-Reference integration patterns:
-
-- Synchronous APIs for interactive customer journeys.
-- Asynchronous events for:
-  - audit trails,
-  - notifications,
-  - ledger updates,
-  - non-blocking enrichment.
-- Adapter layers for external dependencies with clear ownership of:
-  - versioning,
-  - retry semantics,
-  - fallbacks.
-
-A proposal should include an “integration readiness assumptions” list covering:
-- sandbox availability,
-- test data access,
-- change notice periods,
-- client-owned interface SLAs.
+### 3.5 Intelligence and Reporting
+- Reporting mart and risk analytics.
+- Feature store patterns when ML-enabled decisioning is in scope.
 
 ---
 
-## 5. Scalability and Performance Strategy
+## 4. Integration Approach
 
-- Stateless-first service design.
-- Capacity envelopes derived from:
-  - baseline daily volumes,
-  - peak multipliers,
-  - growth outlook.
-- Read/write separation and caching.
-- Queue-based buffering for bursty workloads.
-- Controlled degradation for non-critical features.
+Proposal-grade statements should cover:
 
-Performance commitments remain conditional on:
-- dependency SLAs,
-- data volumes,
-- encryption and audit overhead requirements.
+- Synchronous REST/gRPC for latency-critical journeys.
+- Event-driven integration for audit, notifications and ledger updates.
+- Adapter services to external dependencies:
+  - Core banking
+  - KYC/KYB providers
+  - Credit bureaus
+  - Payment gateways
+  - Document/ID verification
 
 ---
 
-## 6. Security-by-Design
+## 5. Scalability and Performance Framing
 
-Proposal-safe security commitments:
+A credible NFR narrative includes:
 
-- Least-privilege RBAC and MFA for privileged roles.
-- Segregated environments with production access under client approval.
-- Secure SDLC gates integrated into build pipelines.
-- Evidence-ready artifacts:
-  - scan summaries,
-  - remediation logs,
-  - release approvals.
-
-Where formal certifications are required, the proposal positions:
-- compensating control narratives,
-- certification roadmap milestones,
-- scope statements aligned to delivery locations.
+- Target latency percentiles for core APIs.
+- Throughput envelope assumptions tied to peak scenarios.
+- HPA/autoscaling governance with pre-agreed guardrails.
+- Caching strategy with clear invalidation and consistency notes.
+- Back-pressure and graceful degradation for non-critical features.
 
 ---
 
-## 7. Resilience and DR
+## 6. Security-by-Design Summary (Proposal-Level)
 
-- Multi-AZ baseline for core services.
-- Optional secondary-region models:
-  - warm standby,
-  - pilot light,
-  - active-active for highest criticality.
+- Central IAM and least-privilege RBAC.
+- Encryption at rest and in transit with client-controlled keys where required.
+- Environment segregation with controlled production access.
+- Secure SDLC embedding:
+  - SAST
+  - dependency scanning
+  - container image scanning
+  - DAST before major releases
+- Evidence-driven security testing aligned to release cadence.
 
-DR detail is aligned to:
-- data criticality tiers,
-- regulatory retention and recovery standards,
-- client enterprise DR policy.
+---
+
+## 7. DR and Resilience Narrative
+
+- Multi-AZ high availability for core services.
+- Optional secondary-region patterns positioned as negotiable add-ons.
+- Clear RTO/RPO assumptions tied to data-criticality tiers.
+- Regular joint DR testing as a governance commitment.
 
 ---
 
 ## 8. Architecture Governance
 
-- ADR-style logging for major decisions.
-- Design authority cadence tied to sprint and release cycles.
-- Definition of Done including:
-  - security readiness,
-  - test readiness,
-  - observability minimums.
+- Design authority cadence with documented decision logs.
+- ADR-style records for major trade-offs.
+- Definition of Ready/Done including security and test-readiness checks.
+- A clear path to translate architecture decisions into backlog constraints.
 

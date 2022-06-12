@@ -1,48 +1,57 @@
 # Presales Commercial & Scope Q&A – Standard Library
 
----
-
-## Scope and Change
-
-**Q1**: Why do you insist on formal change control?  
-**A**: Enterprise programs evolve. A structured CR process protects both parties by making impact visible, agreed and traceable.
-
-**Q2**: How do you distinguish estimation error from client-driven change?  
-**A**: We baseline assumptions and integration readiness at bid stage. Variance within baseline is treated as vendor risk; variance driven by new requirements or dependency shifts is treated as change.
-
-**Q3**: What is your position on scope freeze?  
-**A**: We support scope stabilization after discovery with defined acceptance criteria and a lightweight governance path for exceptions.
+This library supports bid defense, negotiation workshops and steering-committee discussions.
 
 ---
 
-## Pricing Models
+## 1. Scope and Change Control
 
-**Q4**: Can you deliver everything on fixed price?  
-**A**: Fixed price is feasible once requirements, integrations and NFR constraints are stable. We propose discovery on T&M, then convert defined workstreams to FP with explicit assumptions.
+**Q1. Why do you insist on formal change control?**  
+A1. Complex programs evolve. A structured change process protects both sides by making impact explicit and agreed before execution.
 
-**Q5**: How do you avoid “hidden change” in FP contracts?  
-**A**: We attach a structured assumptions register and a mutual dependency log to the contract baseline.
+**Q2. What counts as a change vs. clarification?**  
+A2. Clarifications resolve ambiguity within the original baseline. Changes introduce new journeys, integrations, NFR levels or acceptance criteria.
 
-**Q6**: Do you offer hybrid models?  
-**A**: Yes. Discovery, data migration and high-uncertainty integration may remain T&M while core build sprints are priced as FP with change thresholds.
-
----
-
-## Rate Cards and Role Mix
-
-**Q7**: How do you justify blended rates to procurement?  
-**A**: We disclose role mix by workstream, explain governance overhead, and tie senior roles to risk reduction rather than volume.
-
-**Q8**: Why do you allocate an onshore architect if most build is offshore?  
-**A**: The onshore architect reduces audit and decision latency and serves as design authority for regulated stakeholders.
+**Q3. How do you quantify change impact quickly?**  
+A3. We use a lightweight impact template covering effort delta, schedule impact, risk posture and dependency constraints.
 
 ---
 
-## TCO and Value
+## 2. Fixed Price vs. Time & Materials
 
-**Q9**: How do you address total cost of ownership?  
-**A**: We discuss build vs run separation, NFR impact on infra and licensing, and the cost reduction effect of automation and quality gates.
+**Q4. Can you deliver the full scope on fixed price?**  
+A4. Fixed price is viable when requirements and dependencies are stable. We often propose Discovery on T&M, then convert clearly defined workstreams to fixed price with explicit assumptions.
 
-**Q10**: Can you link fees to outcomes?  
-**A**: We consider limited outcome components when KPIs and measurement methods are mutually agreed and controllable by both parties.
+**Q5. Why split Discovery from Build commercially?**  
+A5. It reduces estimation risk and creates a shared baseline for both scope and NFRs, preventing hidden rework costs later.
+
+---
+
+## 3. Pricing Drivers
+
+**Q6. What makes your price move the most?**  
+A6. Integration count/quality, regulatory constraints, data-migration complexity and availability requirements are the dominant drivers.
+
+**Q7. How do NFRs affect commercials?**  
+A7. Higher availability, lower latency and stricter auditability typically increase architecture, testing and infrastructure cost. We surface these trade-offs early for conscious decisions.
+
+---
+
+## 4. Risk Allocation
+
+**Q8. How do you separate estimation error from client-driven change?**  
+A8. We absorb true internal underestimation within baseline scope. Client-driven expansions, dependency delays or new compliance targets are governed through the CR log.
+
+**Q9. How do you price uncertain integrations?**  
+A9. We define integration assumptions and, where needed, isolate high-risk interfaces as capped T&M components.
+
+---
+
+## 5. TCO and Run Costs
+
+**Q10. Do you address run cost in proposals?**  
+A10. Yes. We provide rough build-vs-run framing, show how automation lowers incident rates, and outline optional optimization phases post go-live.
+
+**Q11. How do you avoid “cheap build, expensive run”?**  
+A11. We align architecture, observability and test automation with operational KPIs and include these as deliverables, not optional nice-to-haves.
 

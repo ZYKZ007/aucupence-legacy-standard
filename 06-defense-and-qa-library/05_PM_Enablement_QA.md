@@ -1,32 +1,34 @@
-# PM Enablement Q&A – International Client Readiness
+# PM Enablement Q&A – Talking to International Clients
 
 ---
 
-## Delivery Model
+**Q1. How should PMs explain onshore/nearshore/offshore split?**  
+A1. By linking location to decision authority, risk ownership and client-facing communication, not just cost.
 
-**Q1**: How do you explain onshore/nearshore/offshore splits clearly?  
-**A**: We define responsibilities by decision rights, not just headcount, and present a single accountable governance face to the client.
+**Q2. How should PMs defend estimates in English?**  
+A2. Use driver-based language: integrations, data readiness, NFR tier and dependency stability.
 
-**Q2**: How do you handle time-zone handovers?  
-**A**: We propose structured daily handover notes, shared RAID logs and defined escalation windows.
+**Q3. What is the best way to raise a scope concern?**  
+A3. Reference baseline, show impact options, propose trade-offs rather than complaints.
 
----
+**Q4. How should PMs describe agile governance to regulated clients?**  
+A4. Emphasize transparency, audit trails, Definition of Done and disciplined release control.
 
-## Scope and Planning
+**Q5. How do PMs handle conflicting stakeholder requests?**  
+A5. Use a formal prioritization forum and document decisions in RAID/CR logs.
 
-**Q3**: How do you defend estimates to demanding stakeholders?  
-**A**: We tie effort to integration readiness, NFR constraints and historical delivery patterns, and keep assumptions explicit.
+**Q6. What is a minimal steering pack outline?**  
+A6. Scope status, velocity trend, quality metrics, financial variance, top risks and decisions needed.
 
-**Q4**: What is your stance on discovery?  
-**A**: Discovery is positioned as risk reduction and scope stabilization rather than “extra cost.”
+**Q7. How do PMs talk about delivery risk credibly?**  
+A7. Likelihood, impact, mitigation, and client dependencies in one structured narrative.
 
----
+**Q8. What is the correct posture for dependency delays?**  
+A8. Document impact, propose mitigation, and update plan with visible assumptions.
 
-## Risk Communication
+**Q9. How do PMs handle UAT pressure?**  
+A9. Agree entry/exit criteria early and use defect triage rules aligned to business criticality.
 
-**Q5**: What does a good risk statement look like in English?  
-**A**: A concise description of impact, probability, mitigation, owner and the support needed from the client.
-
-**Q6**: How do you avoid sounding defensive?  
-**A**: We anchor conversations to agreed baselines, measurable drivers and option-based trade-offs.
+**Q10. How do PMs avoid sounding non-technical?**  
+A10. Use layered architecture vocabulary and know when to loop in the architect with a clear handoff script.
 
