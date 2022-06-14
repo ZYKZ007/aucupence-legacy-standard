@@ -1,51 +1,63 @@
-# Solution Overview – Architecture Notes (Reference)
+# Solution Overview – Architecture Notes (Reference, Deep)
 
-This document is a lightweight but enterprise-aligned reference for writing solution-overview sections in proposals for digital banking, lending, and transaction-heavy platforms.
+This document is a proposal-ready reference for writing solution-overview sections for digital banking, lending and high-audit platforms.
+
+It provides the narrative structure that sits between an executive overview and detailed NFR responses.
 
 ---
 
 ## 1. Logical View
 
-A standard layered framing used to keep proposal narratives consistent:
+Standard layered framing used to keep proposal narratives consistent:
 
 1. **Channel Layer**  
-   Web, mobile, branch, partner portals, and internal operational consoles.
+   Web, mobile, branch, partner portals and internal operational consoles.
 
-2. **API & Integration Layer**  
-   API gateway, BFF services, service mesh ingress/egress, event backbone for asynchronous integration.
+2. **Edge & Access Layer**  
+   WAF, API gateway, identity integration, throttling and policy enforcement.
 
-3. **Domain Services Layer**  
-   Product/catalog, onboarding, loan origination, decisioning, collections, payments, customer 360, pricing/limits engine.
+3. **API & Integration Layer**  
+   BFF services where needed, service-to-service governance, event backbone for asynchronous integration.
 
-4. **Data & Intelligence Layer**  
+4. **Domain Services Layer**  
+   Onboarding, origination, decisioning, pricing/limits, repayment, servicing, collections, customer 360.
+
+5. **Data & Intelligence Layer**  
    Operational stores, audit/event stores, reporting marts, risk/ML feature stores where applicable.
 
-This model is intentionally abstract so that it can be adapted to different client landscapes without over-committing to a single vendor stack.
+This model remains intentionally abstract so it can map to different client landscapes and tender scopes.
 
 ---
 
 ## 2. Integration Patterns
 
-Typical patterns referenced in proposals:
+Patterns commonly referenced in proposals:
 
-- Synchronous REST/gRPC for critical interactive journeys.
-- Asynchronous event-driven flows for audit, notifications, ledger updates and non-blocking processing.
+- Synchronous APIs for critical interactive journeys.
+- Asynchronous event-driven flows for:
+  - audit,
+  - notifications,
+  - ledger-adjacent updates,
+  - non-blocking downstream processing.
 - Adapter/connector services for external dependencies such as:
-  - Core banking
-  - KYC/KYB
-  - Credit bureaus
-  - Payment gateways
-  - Document/ID verification
+  - core banking,
+  - KYC/KYB providers,
+  - credit bureaus,
+  - payment gateways,
+  - document/ID verification services.
 
 ---
 
 ## 3. Data Segregation and Auditability
 
-Regulated clients expect explicit statements on data boundaries:
+Regulated clients expect explicit statements on:
 
-- **PII vs non-PII separation** with clear lineage and masking rules.
-- **Immutable audit event streams** for critical operations (application submission, approvals, limit changes).
-- **Retention policies** aligned to local requirements, typically multi-year for core operational logs.
+- PII vs non-PII separation with documented masking rules.
+- Immutable audit event streams for:
+  - application and approval decisions,
+  - pricing/limit updates,
+  - repayment and delinquency actions.
+- Retention policies aligned to local requirements and client standards.
 
 ---
 
@@ -57,42 +69,43 @@ A proposal-ready security framing:
 - Least-privilege RBAC and privileged access logging.
 - Encryption at rest and in transit with client-controlled keys where required.
 - Secure SDLC embedding:
-  - SAST
-  - dependency scanning
-  - container image scanning
-  - DAST before major releases
+  - SAST,
+  - dependency scanning,
+  - container image scanning,
+  - DAST before major releases.
 
 ---
 
 ## 5. Operability and Day-2 Signals
 
-A minimal but credible operational narrative:
+Operational narratives that signal maturity:
 
-- Health checks, rolling upgrades, automated rollback.
-- On-call and incident triage aligned to severity definitions.
+- Health checks and automated rollback.
+- Incident severity definitions and escalation paths.
 - Runbooks for dependency outages and throttling scenarios.
-- Service dashboards for both technical and business KPIs.
+- Service dashboards for technical and business KPIs.
 
 ---
 
 ## 6. NFR Cross-Cutting Concerns
 
-Cross-cutting topics commonly scored in technical evaluation:
+Cross-cutting topics commonly scored in evaluation:
 
-- Performance SLO framing (latency percentiles and throughput envelopes).
+- Performance SLO framing with percentile targets.
 - Availability targets by service tier.
-- DR topology at a conceptual level with RTO/RPO negotiation points.
-- Environment strategy:
-  - dev/test/stage/prod separation
-  - data anonymisation rules for lower environments
+- DR topology options tied to RTO/RPO bands.
+- Environment strategy and data-handling rules.
 
 ---
 
-## 7. Scope Boundaries
+## 7. Scope Anchors
 
-To keep the solution overview defensible:
+To keep the overview defensible:
 
-- Explicitly state assumptions about external system readiness.
-- Reference a clarification-question set for integration and data migration.
-- Position discovery/workshop phases as a mechanism to validate the baseline.
+- Reference an assumptions register for integrations and data readiness.
+- Position discovery as the mechanism to confirm:
+  - volume envelopes,
+  - DR tiers,
+  - audit retention requirements,
+  - security testing depth.
 
