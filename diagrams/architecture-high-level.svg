@@ -1,0 +1,7 @@
+<svg width="600" height="400">
+<rect x="20" y="20" width="160" height="80" fill="#CFE8FC"/>
+<text x="30" y="60">Client / Mobile App</text>
+<rect x="220" y="20" width="160" height="80" fill="#D3F9D8"/>
+<text x="230" y="60">API Gateway</text>
+<rect x="420" y="20" width="160" height="80" fill="#FCECD1"/>
+<text x="430" y="60">Service Mesh</text>
